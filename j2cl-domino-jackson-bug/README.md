@@ -30,6 +30,17 @@ Caused by: java.lang.ClassCastException: class com.google.j2cl.transpiler.ast.Au
 ...
 ```
 
+Is this warning a hint?
+```
+[WARNING] org.dominokit:domino-jackson:1.0.0-RC3/stripped_bytecode: non-varargs call of varargs method with inexact argument type for last parameter;
+  cast to elemental2.core.JsNumber for a varargs call
+  cast to elemental2.core.JsNumber[] for a non-varargs call and to suppress this warning
+
+[WARNING] org.dominokit:domino-jackson:1.0.0-RC3/stripped_bytecode: non-varargs call of varargs method with inexact argument type for last parameter;
+  cast to elemental2.core.JsString for a varargs call
+  cast to elemental2.core.JsString[] for a non-varargs call and to suppress this warning
+```
+
 
 ### Full Logs
 ```

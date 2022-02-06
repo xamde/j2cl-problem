@@ -17,51 +17,40 @@ public class JsonTool {
         JsonReader jr = new DefaultJsonReader(sr);
 
         while (jr.peek() != JsonToken.END_DOCUMENT) {
+            log.info("token "+jr.peek());
             switch (jr.peek()) {
                 case BEGIN_OBJECT: {
                     jr.beginObject();
-                    log.info("beginObject");
                     break;
                 }
                 case END_OBJECT: {
                     jr.endObject();
-                    log.info("endObject");
                     break;
                 }
                 case BEGIN_ARRAY: {
                     jr.beginArray();
-                    log.info("beginArray");
                     break;
                 }
                 case END_ARRAY: {
                     jr.endArray();
-                    log.info("endArray");
                     break;
                 }
                 case NAME: {
                     String name = jr.nextName();
-                    log.info("name '"+name+"'");
                     break;
                 }
                 case STRING:
+                    log.info("string: "+jr.nextString());
+                    break;
                 case BOOLEAN:
+                    log.info("bool: "+jr.nextBoolean());
+                    break;
                 case NUMBER:
+                    log.info("number: "+jr.nextNumber().doubleValue());
+                    break;
                 case NULL:
-                    switch (jr.peek()) {
-                        case STRING:
-                            log.info("string: "+jr.nextString());
-                            break;
-                        case BOOLEAN:
-                            log.info("bool: "+jr.nextBoolean());
-                            break;
-                        case NUMBER:
-                            log.info("number: "+jr.nextNumber().doubleValue());
-                            break;
-                        case NULL:
-                            jr.nextNull();
-                            log.info("null");
-                            break;
-                    }
+                    jr.nextNull();
+                    break;
             }
         }
     }
