@@ -13,25 +13,22 @@ public class JsonTool {
     private static final Logger log = Logger.getLogger(JsonTool.class.getName());
 
     private final JsonReader jr;
-    private final Consumer<String> errorHandler;
 
-    JsonTool(JsonReader jr,Consumer<String> errorHandler) {
+    JsonTool(JsonReader jr) {
         this.jr = jr;
-        this.errorHandler = errorHandler;
     }
 
     public static void parse(String json) {
         StringReader sr = new StringReader(json);
 
         JsonReader jr = new DefaultJsonReader(sr);
-        Consumer<String> errorHandler = (msg) -> log.warning(msg + " " + jr.getLineNumber() + ":" + jr.getColumnNumber());
-        JsonTool importer = new JsonTool(jr, errorHandler);
+        JsonTool importer = new JsonTool(jr);
 
         while (jr.peek() != JsonToken.END_DOCUMENT) {
             log.finest("Parsing " + jr.peek()+" at "+jr.getLineNumber()+":"+jr.getColumnNumber());
             boolean ok = importer.processToken();
             if (!ok) {
-                errorHandler.accept("Partial result");
+                log.warning("Partial result");
             }
         }
         importer.endDocument();
